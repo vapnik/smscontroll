@@ -1,0 +1,2 @@
+adasdasdsad
+sudo ln -s ~/root/Python-3.3.5/main/mainsite/mysite_nginx.conf /etc/nginx/sites-enabled/
