@@ -59,13 +59,10 @@ WSGI_APPLICATION = 'mainsite.wsgi.application'
 
 DATABASES = {
     'default': {
-        'NAME': 'mainsite',
-        'ENGINE': 'mysql.connector.django',
+        'NAME': 'sms',
+        'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
-        'PASSWORD': 'ARNG',
-        'OPTIONS': {
-            'autocommit': True,
-        },
+        'PASSWORD': ''
     }
 }
 
