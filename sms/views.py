@@ -4,8 +4,7 @@ from sms.russms import RusSMS
 
 
 def russms(request):
-    sms = RusSMS()
-
+    sms = RusSMS(phone=request.GET.get('phone'))
     response = 'send to ' + request.GET.get('phone') + '<br>'
-    response += sms.sendrequest(request.GET.get('phone'))
+    response += sms.send()
     return HttpResponse(response)

@@ -1,5 +1,6 @@
 from sms.models import Provider, OneSMS
 from datetime import datetime
+from django.utils.crypto import get_random_string
 
 
 class Sender:
@@ -9,6 +10,7 @@ class Sender:
     login = False
     password = False
     api_key = False
+    key = False
 
     def __init__(self, phone=False, provider=False):
         if phone:
@@ -30,11 +32,12 @@ class Sender:
         self.provider = provider
 
     def send(self):
-        phone = self.get_phone()
-        self.sendrequest(phone)
+        self.key = get_random_string(12)
+        result = self.sendrequest()
         self.save()
+        return result
 
-    def sendrequest(self, phone):
+    def sendrequest(self):
         pass
 
     def fill_secure_data(self, fields):
@@ -54,7 +57,7 @@ class Sender:
 
     def save(self):
         provider = self.getProvider()
-        sms = OneSMS(provider=provider, send_time=datetime.now())
+        sms = OneSMS(provider=provider, send_time=datetime.now(), key=self.key)
         sms.save()
         return sms.id
 
