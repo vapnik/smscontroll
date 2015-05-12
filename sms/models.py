@@ -11,8 +11,8 @@ class Provider(models.Model):
 
 class OneSMS(models.Model):
     send_time = models.DateTimeField()
-    receive_time = models.DateTimeField()
+    receive_time = models.DateTimeField(blank=True, null=True)
     provider = models.ForeignKey(Provider)
 
     def __str__(self):
-        return provider + ' ' + self.id
+        return self.provider + ' ' + self.id
