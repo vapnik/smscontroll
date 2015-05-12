@@ -19,4 +19,4 @@ class OneSMS(models.Model):
     key = models.CharField(max_length=12)
 
     def __str__(self):
-        return self.provider + ' ' + self.id
+        return self.provider.__str__() + ' ' + self.key
