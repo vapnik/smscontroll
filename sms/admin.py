@@ -1,3 +1,4 @@
 from django.contrib import admin
+from sms.models import Provider
 
-# Register your models here.
+admin.site.register(Provider)

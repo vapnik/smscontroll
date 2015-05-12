@@ -3,7 +3,10 @@ from django.db import models
 
 class Provider(models.Model):
     name = models.CharField(max_length=200)
-    link = models.CharField(max_length=200)
+    link = models.CharField(max_length=200, blank=True, null=True)
+    login = models.CharField(max_length=255, blank=True, null=True)
+    password = models.CharField(max_length=255, blank=True, null=True)
+    apiKey = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.name

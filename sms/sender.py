@@ -6,6 +6,9 @@ class Sender:
     provider = 'abstract'
     sms_id = False
     phone = False
+    login = False
+    password = False
+    api_key = False
 
     def __init__(self, phone=False, provider=False):
         if phone:
@@ -33,6 +36,14 @@ class Sender:
 
     def sendrequest(self, phone):
         pass
+
+    def fill_secure_data(self, fields):
+        provider = self.getProvider()
+        for index in range(len(fields)):
+            if getattr(provider, fields[index]):
+                setattr(self, fields[index], getattr(provider, fields[index]))
+            else:
+                raise SecureFieldDoesNotExist(provider.name, fields[index])
 
     @staticmethod
     def check(phone):
@@ -69,3 +80,9 @@ class SendError(Exception):
 class PhoneError(Exception):
     def __init__(self, phone):
         self.phone = phone
+
+
+class SecureFieldDoesNotExist(Exception):
+    def __init__(self, provider, field):
+        self.provider = provider
+        self.field = field
