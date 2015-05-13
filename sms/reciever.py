@@ -1,5 +1,6 @@
 __author__ = 'vapnik'
 from sms.models import OneSMS
+from datetime import datetime
 
 
 class Receiver():
@@ -25,13 +26,26 @@ class Receiver():
             try:
                 self.sms = OneSMS.objects.get(key=self.key)
             except OneSMS.DoesNotExist:
-                raise KeyDoesNotExist(self.key)
+                raise self.KeyDoesNotExist(self.key)
         else:
             raise InvalidKey(self.key)
+
+    def save_time(self):
+        if not self.sms:
+            raise self.SmsDoesNotDefined()
         if self.sms.receive_time:
             raise self.HasBeenReceived(self.key)
+        self.sms.receive_time = datetime.now()
+        self.sms.save()
 
     class HasBeenReceived(Exception):
+        def __init__(self, key):
+            self.key = key
+
+    class SmsDoesNotDefined(Exception):
+        pass
+
+    class KeyDoesNotExist(Exception):
         def __init__(self, key):
             self.key = key
 
@@ -41,6 +55,3 @@ class InvalidKey(Exception):
         self.key = key
 
 
-class KeyDoesNotExist(Exception):
-    def __init__(self, key):
-        self.key = key

@@ -71,6 +71,31 @@ class ReceiverTest(TestCase):
         self.reciever.find_sms()
         self.assertEqual(self.reciever.sms.key, valid_key)
 
+        self.reciever.set_key(invalid_key)
+        try:
+            self.reciever.find_sms()
+        except self.reciever.KeyDoesNotExist:
+            pass
+
+    def test_save_receive(self):
+        sms = TestTools.make_random_sms()
+        self.reciever.set_key(sms.key)
+        self.reciever.find_sms()
+        self.reciever.save_time()
+        saved_sms = OneSMS.objects.get(key=sms.key)
+        self.assertFalse(not saved_sms.receive_time)
+
+    def test_double_received(self):
+        sms = TestTools.make_random_sms()
+        self.reciever.set_key(sms.key)
+        self.reciever.find_sms()
+        self.reciever.save_time()
+        try:
+            self.reciever.save_time()
+            self.assertTrue(False)
+        except self.reciever.HasBeenReceived:
+            pass
+
 
 class TestTools:
     @staticmethod
