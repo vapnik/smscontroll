@@ -28,6 +28,12 @@ class Receiver():
                 raise KeyDoesNotExist(self.key)
         else:
             raise InvalidKey(self.key)
+        if self.sms.receive_time:
+            raise self.HasBeenReceived(self.key)
+
+    class HasBeenReceived(Exception):
+        def __init__(self, key):
+            self.key = key
 
 
 class InvalidKey(Exception):
