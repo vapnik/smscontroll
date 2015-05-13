@@ -10,6 +10,8 @@ class Receiver():
     def __init__(self, key=False):
         if key:
             self.set_key(key)
+            self.find_sms()
+            self.save_time()
 
     @staticmethod
     def check_key(key):

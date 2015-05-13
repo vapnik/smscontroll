@@ -96,6 +96,12 @@ class ReceiverTest(TestCase):
         except self.reciever.HasBeenReceived:
             pass
 
+    def test_all_from_init(self):
+        sms = TestTools.make_random_sms()
+        Receiver(sms.key)
+        sms = OneSMS.objects.get(key=sms.key)
+        self.assertTrue(sms.receive_time)
+
 
 class TestTools:
     @staticmethod
