@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from sms.russms import RusSMS
+from sms.reciever import Receiver
 
 
 def russms(request):
@@ -8,3 +9,9 @@ def russms(request):
     response = 'send to ' + request.GET.get('phone') + '<br>'
     response += sms.send()
     return HttpResponse(response)
+
+
+def receive(request):
+    key = request.GET.get('key')
+    Receiver(key)
+    return HttpResponse('Код сохранен')
