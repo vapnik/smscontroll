@@ -18,6 +18,9 @@ class Sender:
         if provider:
             self.setprovider(provider)
 
+    def get_key_for_sms(self):
+        return "SMSTEST#" + self.key
+
     def setPhone(self, phone):
         self.phone = phone
 
@@ -31,8 +34,11 @@ class Sender:
     def setprovider(self, provider):
         self.provider = provider
 
-    def send(self):
+    def make_key(self):
         self.key = get_random_string(12)
+
+    def send(self):
+        self.make_key()
         result = self.sendrequest()
         self.save()
         return result
