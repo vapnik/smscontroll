@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from django.http import HttpResponse
-from sms.russms import RusSMS
+
+from sms.providers.russms import RusSMS
 from sms.reciever import Receiver
 
 
