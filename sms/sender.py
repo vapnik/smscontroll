@@ -9,7 +9,7 @@ class Sender:
     phone = False
     login = False
     password = False
-    api_key = False
+    apiKey = False
     key = False
 
     def __init__(self, phone=False, provider=False):
