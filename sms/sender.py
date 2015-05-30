@@ -1,6 +1,8 @@
 from sms.models import Provider, OneSMS
 from datetime import datetime
 from django.utils.crypto import get_random_string
+import urllib
+from urllib.parse import urlencode
 
 
 class Sender:
@@ -60,6 +62,14 @@ class Sender:
             return False
         else:
             return phone
+
+    @staticmethod
+    def http_request(link, params):
+        link += urlencode(params)
+        response = urllib.request.urlopen(link)
+        response = response.read().decode(encoding='utf-8')
+        response.encode('UTF-8')
+        return response
 
     def save(self):
         provider = self.getProvider()
