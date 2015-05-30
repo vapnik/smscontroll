@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from sms.views import russms, receive, smsru
+from sms.views import russms, receive, smsru, smsintel
 
 urlpatterns = patterns('',
                        # Examples:
@@ -11,5 +11,6 @@ urlpatterns = patterns('',
                        url(r'^$', include(admin.site.urls)),
                        url(r'^russms/$', russms),
                        url(r'^smsru/$', smsru),
+                       url(r'^smsintel/$', smsintel),
                        url(r'^receive/$', receive)
 )

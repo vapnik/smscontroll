@@ -4,6 +4,7 @@ from sms.providers.russms import RusSMS
 
 from sms.providers.smsru import SmsRu
 
+from sms.providers.smsintel import SmsIntel
 from sms.reciever import Receiver
 
 
@@ -21,7 +22,15 @@ def smsru(request):
     return HttpResponse(response)
 
 
+def smsintel(request):
+    sms = SmsIntel(phone=request.GET.get('phone'))
+    response = 'send to ' + request.GET.get('phone') + '<br>'
+    response += sms.send()
+    return HttpResponse(response)
+
+
 def receive(request):
     key = request.GET.get('key')
     Receiver(key)
     return HttpResponse('Код сохранен')
+
