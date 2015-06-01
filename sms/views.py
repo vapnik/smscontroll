@@ -1,10 +1,8 @@
 from django.http import HttpResponse
-
 from sms.providers.russms import RusSMS
-
 from sms.providers.smsru import SmsRu
-
 from sms.providers.smsintel import SmsIntel
+from sms.providers.websms import WebSms
 from sms.reciever import Receiver
 
 
@@ -24,6 +22,13 @@ def smsru(request):
 
 def smsintel(request):
     sms = SmsIntel(phone=request.GET.get('phone'))
+    response = 'send to ' + request.GET.get('phone') + '<br>'
+    response += sms.send()
+    return HttpResponse(response)
+
+
+def websms(request):
+    sms = WebSms(phone=request.GET.get('phone'))
     response = 'send to ' + request.GET.get('phone') + '<br>'
     response += sms.send()
     return HttpResponse(response)
