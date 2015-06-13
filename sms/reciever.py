@@ -1,6 +1,7 @@
 __author__ = 'vapnik'
 from sms.models import OneSMS
 from datetime import datetime
+from sms.analise import Updater
 
 
 class Receiver():
@@ -39,6 +40,7 @@ class Receiver():
             raise self.HasBeenReceived(self.key)
         self.sms.receive_time = datetime.now()
         self.sms.save()
+        Updater.save_last_time(self.sms.provider, self.sms.receive_time, self.sms.send_time)
 
     class HasBeenReceived(Exception):
         def __init__(self, key):

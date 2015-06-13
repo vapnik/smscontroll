@@ -7,6 +7,10 @@ class Provider(models.Model):
     login = models.CharField(max_length=255, blank=True, null=True)
     password = models.CharField(max_length=255, blank=True, null=True)
     apiKey = models.CharField(max_length=255, blank=True, null=True)
+    last_time = models.IntegerField(blank=True, null=True)
+    optimal_rules = models.BooleanField(default=False)
+    average_time = models.IntegerField(blank=True, null=True)
+    cost = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.name

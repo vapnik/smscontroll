@@ -3,7 +3,8 @@ from sms.sender import Sender, SecureFieldDoesNotExist
 from django.utils.crypto import get_random_string
 from sms.models import Provider, OneSMS
 from sms.reciever import Receiver, InvalidKey
-from datetime import datetime
+from datetime import datetime, timedelta
+from sms.analise import Updater
 
 
 class SenderTest(TestCase):
@@ -123,6 +124,13 @@ class TestTools:
         sms = OneSMS(**fields)
         sms.save()
         return sms
+
+
+class AnaliseTest(TestCase):
+    def test_delivery_time(self):
+        end = datetime.now()
+        begin = end - timedelta(seconds=40)
+        self.assertEqual(40, Updater.calc_deliver_time(begin, end))
 
 
 class TestTestTools(TestCase):
