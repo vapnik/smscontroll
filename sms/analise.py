@@ -27,3 +27,24 @@ class Updater:
     def save_average_time(provider):
         provider.average_time = Updater.get_average_time(provider)
         provider.save()
+
+    @staticmethod
+    def save_rules(provider):
+        provider.optimal_rules = True
+        provider.save()
+
+
+class Analise:
+    max_time = 90
+
+    def get_current(self):
+        providers = Provider.objects.order_by('cost')
+        for provider in providers:
+            if provider.last_time < self.max_time:
+                return provider
+
+    def get_optimal(self):
+        providers = Provider.objects.order_by('cost')
+        for provider in providers:
+            if provider.average_time < self.max_time and provider.optimal_rules:
+                return provider

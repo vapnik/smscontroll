@@ -42,6 +42,7 @@ class Receiver():
         self.sms.save()
         Updater.save_last_time(self.sms.provider, self.sms.receive_time, self.sms.send_time)
         Updater.save_average_time(self.sms.provider)
+        Updater.save_rules(self.sms.provider)
 
     class HasBeenReceived(Exception):
         def __init__(self, key):
